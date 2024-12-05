@@ -872,6 +872,12 @@ footer .copyright {
   font-size: 13p;
 }
 
+#msg {
+  color: #f70000;
+  margin-top: -20px;
+  display: block;
+}
+
 /* For mid display  */
 @media (max-width: 799px) {
   .section-p1 {
