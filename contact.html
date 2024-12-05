@@ -77,14 +77,14 @@
     </section>
 
     <section id="form-details">
-      <form action="">
+      <form action="" name="submit-to-google-sheet">
         <span>LEAVE A MESSAGE</span>
         <h2>We love to hear from you</h2>
-        <input type="text" placeholder="Your Name" />
-        <input type="text" placeholder="Email" />
-        <input type="text" placeholder="Subject" />
+        <input type="text" name="Name" placeholder="Your Name" />
+        <input type="text" name="E-mail" placeholder="E-mail" />
+        <input type="text" name="Subject" placeholder="Subject" />
         <textarea
-          name=""
+          name="Message"
           id=""
           cols="30"
           rows="10"
@@ -186,5 +186,17 @@
       <div class="copyright">© 2024 HTML CSS E-Commerce Template</div>
     </footer>
     <script src="script.js"></script>
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbw4x2hZVYDho32NT5PB-w3uvRrhF-v7obeQmrT8jTPBQvj9BwwDu9TaZX5ZgQY__hizuQ/exec";
+      const form = document.forms["submit-to-google-sheet"];
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => console.log("Success!", response))
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
   </body>
 </html>
