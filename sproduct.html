@@ -255,6 +255,7 @@
           const quantity = parseInt(document.getElementById("quantity").value, 10);
           const price = 139.0; // Fixed price for this product
           const productName = "Men's Fashion T-Shirt";
+          const src = MainIng.src;
 
           if (size === "Select Size" || quantity < 1) {
              alert("Please select a valid size and quantity.");
@@ -262,7 +263,7 @@
          }
 
         // Create a product object
-        const product = { size, quantity, price, productName, subtotal: (price * quantity).toFixed(2) };
+        const product = { src, size, quantity, price, productName, subtotal: (price * quantity).toFixed(2) };
 
         // Retrieve existing cart data from localStorage
         let cart = JSON.parse(localStorage.getItem("cart")) || [];

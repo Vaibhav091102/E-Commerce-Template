@@ -425,6 +425,7 @@ a {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
+
 footer {
   display: flex;
   justify-content: space-between;
@@ -552,6 +553,11 @@ footer .copyright {
 #prodetails .single-pro-details button {
   background: #088178;
   color: #fff;
+}
+#prodetails .single-pro-details button:active {
+  background: #022725;
+  color: #fff;
+  transform: scale(0.98);
 }
 #prodetails .single-pro-details span {
   line-height: 25px;
@@ -736,8 +742,8 @@ footer .copyright {
   cursor: pointer;
   transition: all 0.7s ease;
 }
-#form-details form button :hover {
-  background-color: #088195;
+#form-details form button:active {
+  background-color: #08343b;
   transform: scale(1.05);
 }
 #form-details .people div {
@@ -858,6 +864,9 @@ footer .copyright {
   background-color: #088178;
   color: #fff;
   padding: 12px 20px;
+}
+#subtotal button :hover {
+  background: #023f3b;
 }
 #subtotal {
   width: 50%;

@@ -48,6 +48,7 @@
             <td>Remove</td>
             <td>Image</td>
             <td>Product</td>
+            <td>Size</td>
             <td>Price</td>
             <td>Quality</td>
             <td>Subtotal</td>
@@ -148,10 +149,11 @@
           const row = document.createElement("tr");
           row.innerHTML = `
           <td><a href="#" class="remove" data-index="${index}"><i class="far fa-times-circle"></i></a></td>
-          <td><img src="img/products/f1.jpg" alt="Product" /></td>
+          <td><img src="${item.src}" alt="Product" /></td>
           <td>${item.productName}</td>
+          <td>${item.size}</td>
           <td>$${item.price}</td>
-          <td><input type="number" value="${item.quantity}" min="1" /></td>
+          <td>${item.quantity}</td>
           <td>$${item.subtotal}</td>
         `;
           cartTable.appendChild(row);
