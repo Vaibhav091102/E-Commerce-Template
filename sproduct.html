@@ -76,15 +76,15 @@
         <h6>Home / T-Shirt</h6>
         <h4>Men's Fashion T Shirt</h4>
         <h2>$139.00</h2>
-        <select>
+        <select id="size">
           <option>Select Size</option>
           <option>XL</option>
           <option>XXL</option>
           <option>Small</option>
           <option>Large</option>
         </select>
-        <input type="number" value="1" />
-        <button class="normal" id="12345">Add To Cart</button>
+        <input type="number" id="quantity" value="1" min="1"/>
+        <button class="normal" id="addToCartBtn">Add To Cart</button>
         <h4>Product Details</h4>
         <span
           >Elevate your wardrobe with this stylish and comfortable cotton shirt,
@@ -163,7 +163,6 @@
           </div>
           <a href="#"><i>🛒</i></a>
         </div>
-          <a href="#"><i>🛒</i></a>
         </div>
       </div>
     </section>
@@ -248,6 +247,37 @@
       SmallImg[3].onclick = function(){
         MainIng.src = SmallImg[3].src;
       }
+
+      
+      document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("addToCartBtn").addEventListener("click", function () {
+          const size = document.getElementById("size").value;
+          const quantity = parseInt(document.getElementById("quantity").value, 10);
+          const price = 139.0; // Fixed price for this product
+          const productName = "Men's Fashion T-Shirt";
+
+          if (size === "Select Size" || quantity < 1) {
+             alert("Please select a valid size and quantity.");
+             return;
+         }
+
+        // Create a product object
+        const product = { size, quantity, price, productName, subtotal: (price * quantity).toFixed(2) };
+
+        // Retrieve existing cart data from localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.push(product);
+
+       // Save updated cart to localStorage
+       localStorage.setItem("cart", JSON.stringify(cart));
+
+       alert("Product added to cart!");
+       // Clear form
+       document.getElementById("size").value = "Select Size";
+       document.getElementById("quantity").value = 1;
+  });
+});
+
     </script>
     <script src="script.js"></script>
   </body>

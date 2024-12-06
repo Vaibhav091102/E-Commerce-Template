@@ -80,19 +80,20 @@
       <form action="" name="submit-to-google-sheet">
         <span>LEAVE A MESSAGE</span>
         <h2>We love to hear from you</h2>
-        <input type="text" name="Name" placeholder="Your Name" />
-        <input type="text" name="E-mail" placeholder="E-mail" />
-        <input type="text" name="Subject" placeholder="Subject" />
+        <input type="text" name="Name" placeholder="Your Name" required />
+        <input type="text" name="E-mail" placeholder="E-mail" required />
+        <input type="text" name="Subject" placeholder="Subject" required />
         <textarea
           name="Message"
           id=""
           cols="30"
           rows="10"
           placeholder="Your Message"
+          required
         ></textarea>
         <button class="normal">Submit</button>
+        <span id="msg"></span>
       </form>
-      <span id="msg">Message Send</span>
 
       <div class="people">
         <div>
@@ -197,9 +198,10 @@
         e.preventDefault();
         fetch(scriptURL, { method: "POST", body: new FormData(form) })
           .then((response) => {
-            meg.innerHTML = "Message send seccuessfully!";
+            // msg.innerHTML = "Message send seccuessfully!";
+            alert("Message send seccuessfully!");
             setTimeout(function () {
-              meg.innerHTML = "";
+              msg.innerHTML = "";
             }, 5000);
             form.reset();
           })

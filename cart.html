@@ -53,32 +53,7 @@
             <td>Subtotal</td>
           </tr>
         </thead>
-        <tbody id="cartTable">
-          <tr>
-            <td>
-              <a href="#"><i class="far fa-times-circle"></i></a>
-            </td>
-            <td>
-              <img src="img/products/f1.jpg" alt="" />
-            </td>
-            <td>Cartoon Astronaut T-Shirts</td>
-            <td>$118.19</td>
-            <td><input type="number" value="1" /></td>
-            <td>$118.19</td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#"><i class="far fa-times-circle"></i></a>
-            </td>
-            <td>
-              <img src="img/products/f2.jpg" alt="" />
-            </td>
-            <td>Cartoon Astronaut T-Shirts</td>
-            <td>$118.19</td>
-            <td><input type="number" value="1" /></td>
-            <td>$118.19</td>
-          </tr>
-        </tbody>
+        <tbody id="cartTable"></tbody>
       </table>
     </section>
 
@@ -96,15 +71,15 @@
         <table>
           <tr>
             <td>Cart Subtotal</td>
-            <td>$ 335</td>
+            <!-- <td>$ 335</td> -->
           </tr>
           <tr>
             <td>Shipping</td>
-            <td>Free</td>
+            <!-- <td>Free</td> -->
           </tr>
           <tr>
             <td><strong>Total</strong></td>
-            <td><strong>$ 335</strong></td>
+            <!-- <td><strong>$ 335</strong></td> -->
           </tr>
         </table>
         <button class="normal">Proceed to checkout</button>
@@ -160,6 +135,89 @@
       </div>
       <div class="copyright">© 2024 HTML CSS E-Commerce Template</div>
     </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const cartTable = document.getElementById("cartTable");
+        const subtotalElement = document.querySelector("#subtotal table");
+
+        // Retrieve cart data from localStorage
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Populate the cart table
+        cart.forEach((item, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+          <td><a href="#" class="remove" data-index="${index}"><i class="far fa-times-circle"></i></a></td>
+          <td><img src="img/products/f1.jpg" alt="Product" /></td>
+          <td>${item.productName}</td>
+          <td>$${item.price}</td>
+          <td><input type="number" value="${item.quantity}" min="1" /></td>
+          <td>$${item.subtotal}</td>
+        `;
+          cartTable.appendChild(row);
+        });
+
+        // Function to calculate and update totals
+        function updateTotals() {
+          let subtotal = 0;
+
+          // Calculate subtotal
+          cart.forEach((item) => {
+            subtotal += parseFloat(item.subtotal || 0);
+          });
+          // Update the Cart Total section
+          subtotalElement.innerHTML = `
+      <tr>
+        <td>Cart Subtotal</td>
+        <td>$${subtotal.toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td>Shipping</td>
+        <td>Free</td>
+      </tr>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td><strong>$${subtotal.toFixed(2)}</strong></td>
+      </tr>
+    `;
+        }
+        // Initial calculation
+        updateTotals();
+
+        // Event listener for quantity change
+        cartTable.addEventListener("input", function (e) {
+          if (e.target && e.target.classList.contains("quantity")) {
+            const index = e.target.getAttribute("data-index");
+            const newQuantity = parseInt(e.target.value);
+
+            if (!isNaN(newQuantity) && newQuantity > 0) {
+              cart[index].quantity = newQuantity;
+              cart[index].subtotal = cart[index].price * newQuantity;
+              localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+              e.target
+                .closest("tr")
+                .querySelector(".subtotal").textContent = `$${cart[
+                index
+              ].subtotal.toFixed(2)}`;
+              updateTotals();
+            }
+          }
+        });
+
+        // Remove item from cart
+        cartTable.addEventListener("click", function (e) {
+          if (e.target && e.target.closest(".remove")) {
+            const index = e.target
+              .closest(".remove")
+              .getAttribute("data-index");
+            cart.splice(index, 1); // Remove item from cart array
+            localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+            e.target.closest("tr").remove(); // Remove row from table
+            updateTotals(); // Recalculate totals
+          }
+        });
+      });
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
